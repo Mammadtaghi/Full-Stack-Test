@@ -35,7 +35,7 @@ export async function GetAllProducts(req,res) {
 
 export async function GetProductByID(req,res) {
     try {
-        const { id } = req.body
+        const { id } = req.params
 
         const product = await Products.findById(id)
 
@@ -49,7 +49,7 @@ export async function GetProductByID(req,res) {
 
 export async function DeleteProductByID(req,res) {
     try {
-        const { id } = req.body
+        const { id } = req.params
 
         const product = await Products.findByIdAndDelete(id)
 

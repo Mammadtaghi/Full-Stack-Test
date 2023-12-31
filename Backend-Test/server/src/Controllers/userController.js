@@ -154,6 +154,6 @@ export const UpdateBasket = async (req,res)=>{
         res.status(202).send(`${username}'s basket updated!`)
 
     } catch (error) {
-        res.status(500).json({message:error})
+        res.status(500).json({message:"An Error occured"})
     }
 }

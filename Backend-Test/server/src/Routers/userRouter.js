@@ -1,5 +1,5 @@
 import express from 'express';
-import { ChangePassword, DeleteUserByID, GetAllUsers, GetUserByID, Login, MakeAdmin, Register } from "./../Controllers/userController.js";
+import { ChangePassword, DeleteUserByID, GetAllUsers, GetUserByID, Login, MakeAdmin, Register, UpdateBasket } from "./../Controllers/userController.js";
 import { CheckAdmin } from "./../Middleware/CheckAdmin.js";
 import { CheckToken } from "./../Middleware/CheckToken.js";
 import { CheckSuperAdmin } from '../Middleware/CheckSuperAdmin.js';
@@ -20,5 +20,7 @@ router.post("/login", Login);
 router.put("/changepassword", CheckToken, ChangePassword);
 
 router.put("/promote", CheckToken, CheckSuperAdmin, MakeAdmin);
+
+router.put("/update-basket", CheckToken, UpdateBasket)
 
 export default router
