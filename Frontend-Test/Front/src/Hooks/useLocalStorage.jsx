@@ -9,7 +9,6 @@ function useLocalStorage(storageName, defaultValue=null) {
     },[data])
 
     return [data, setData]
-
 }
 
 export default useLocalStorage

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './index.scss';
 import axios from 'axios';
+import React, { useState } from 'react';
 import { useUser } from '../../../Context/userContext';
+import './index.scss';
 
 function ChangePassword() {
 
@@ -42,7 +42,7 @@ function ChangePassword() {
     return (
         <section>
             <form onSubmit={(e) => handleValues(e)}>
-                <input type="text" id='changePassword' name='changePassword' placeholder='Enter New Password' /><br />
+                <input type="text" id='changePassword' name='changePassword' min={4} placeholder='Enter New Password' /><br />
                 <input type="submit" value="Change" />
             </form>
             { res ? res : null }

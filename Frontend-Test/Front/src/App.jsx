@@ -1,13 +1,13 @@
-import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useUser } from './Context/userContext';
 import Layout from "./Layouts/Layout";
+import Account from './Pages/Account Page';
+import AdminPanel from './Pages/AdminPanel Page';
 import Error from "./Pages/Error Page";
 import Home from "./Pages/Home Page";
 import LogIn from "./Pages/LogIn";
 import SignUp from "./Pages/SignUp";
-import { UserProvider, useUser } from './Context/userContext';
-import Account from './Pages/Account Page';
-import AdminPanel from './Pages/AdminPanel Page';
+import './App.css';
 
 function App() {
 

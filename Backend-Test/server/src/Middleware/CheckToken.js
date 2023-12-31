@@ -9,14 +9,21 @@ export const CheckToken = async (req, res, next) => {
     
         const token = req.headers.authorization.split(' ')[1]
         
-        const decode = jwt.verify(token, "AlbiKey")
+        try {
+            const decode = jwt.verify(token, "AlbiKey")
+            console.log(decode)
+        
+            req.username = decode.username
+            req.role = decode.role
+            req.basket = decode.basket
+            req.wishlist = decode.wishlist
+        
+            next()
+        } catch (error) {
+            res.status(401).json({message:"JWT Expired!"})
+            return
+        }
     
-        console.log(decode)
-    
-        req.username = decode.username
-        req.role = decode.role
-    
-        next()
     } catch (error) {
      console.log(error);   
     }
