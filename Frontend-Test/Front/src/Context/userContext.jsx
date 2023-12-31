@@ -4,31 +4,54 @@ import useLocalStorage from "../Hooks/useLocalStorage";
 
 const userContext = createContext()
 
-export const UserProvider = ({children}) =>{
+export const UserProvider = ({ children }) => {
 
-    const [user, setUser] = useLocalStorage('user',{username:'', role:'',basket:null,wishlist:null,token:''})
+    const [user, setUser] = useLocalStorage('user', { username: '', role: '', basket: null, wishlist: null, token: '' })
 
     // Basket
 
     async function AddToBasket(item) {
         let BasketCopy = user.basket
-        BasketCopy
+        const itemIndex = BasketCopy.findIndex(x => x._id === item._id)
+        if (itemIndex === -1) {
+            item.count = 1
+            BasketCopy.push(item)
+            user.basket = BasketCopy
+            localStorage.setItem('user', JSON.stringify(user))
+            console.log(BasketCopy);
+            return
+        }
+        BasketCopy[itemIndex].count++
+        user.basket = BasketCopy
+        localStorage.setItem('user', JSON.stringify(user))
+        console.log(BasketCopy);
     }
 
     // Wishlist
 
-
+    async function AddToWishlist(item) {
+        let WislistCopy = user.wishlist
+        const itemIndex = WislistCopy.findIndex(x => x._id === item._id)
+        if (itemIndex === -1) {
+            item.count = 1
+            WislistCopy.push(item)
+            user.wishlist = WislistCopy
+            return
+        }
+        WislistCopy[itemIndex].count++
+        user.wishlist = WislistCopy
+    }
 
     // Data
 
     const data = {
-        user:user,
-        setUser:setUser,
+        user: user,
+        setUser: setUser,
         AddToBasket,
-
+        AddToWishlist,
     }
 
-    return(
+    return (
         <userContext.Provider value={data}>
             {children}
         </userContext.Provider>
@@ -36,4 +59,4 @@ export const UserProvider = ({children}) =>{
 
 }
 
-export const useUser=()=>useContext(userContext)
+export const useUser = () => useContext(userContext)
