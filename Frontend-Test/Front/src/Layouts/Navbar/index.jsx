@@ -8,7 +8,7 @@ function Navbar() {
   const { user, setUser } = useUser()
 
   return (
-    <nav style={{ display: 'flex', columnGap: '10px' }}>
+    <nav style={{ display: 'flex', columnGap: '10px', alignItems:'center', justifyContent:'center' }}>
       <NavLink to={'/'}>Home</NavLink>
       { user.role ? "" : <NavLink to={'/register'}>Sign Up</NavLink>}
       { user.role ? "" : <NavLink to={'/login'}>Login</NavLink>}
