@@ -4,10 +4,11 @@ import { Products } from "./../Models/productModel.js";
 
 export async function CreateNewProduct(req,res) {
     try {
-        const { title, price, categories, discount=0, inStock=0 } = req.body
+        const { title, price, image, categories, discount=0, inStock=0 } = req.body
         const newProduct = new Products({
             title:title,
             price:price,
+            image:image,
             categories:categories,
             discount:discount,
             inStock:inStock
