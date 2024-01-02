@@ -3,6 +3,8 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 
+// Get
+
 export const GetAllUsers = async (req, res) => {
     try {
 
@@ -27,6 +29,8 @@ export const GetUserByID = async (req, res) => {
 }
 
 
+// Delete
+
 export const DeleteUserByID = async (req, res) => {
     try {
         const { id } = req.params
@@ -37,6 +41,8 @@ export const DeleteUserByID = async (req, res) => {
     }
 }
 
+
+// Post
 
 export const Login = async (req, res) => {
     try {
@@ -107,6 +113,9 @@ export const Register = async (req, res) => {
     }
 }
 
+
+// Put
+
 export const ChangePassword = async (req,res)=>{
     try {
         const { newPassword } = req.body
@@ -151,7 +160,22 @@ export const UpdateBasket = async (req,res)=>{
 
         const UpdatedUser = await Users.findOneAndUpdate({username:username},{basket:basket})
 
-        res.status(202).send(`${username}'s basket updated!`)
+        res.status(202).send(`${username}'s basket is updated!`)
+
+    } catch (error) {
+        res.status(500).json({message:"An Error occured"})
+    }
+}
+
+export const UpdateWishlist = async (req,res)=>{
+    try {
+        const { username, wishlist } = req.body
+
+        const User = await Users.findOne({username:username})
+
+        const UpdatedUser = await Users.findOneAndUpdate({username:username},{wishlist:wishlist})
+
+        res.status(202).send(`${username}'s wishlist is updated!`)
 
     } catch (error) {
         res.status(500).json({message:"An Error occured"})
