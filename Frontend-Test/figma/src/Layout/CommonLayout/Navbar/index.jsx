@@ -18,7 +18,7 @@ function Navbar() {
       wishlist:[],
     })
 
-    navigate('/')
+    setTimeout(() =>navigate('/'), 1);
   }
 
   return (

@@ -8,6 +8,7 @@ export const UserProvider = ({ children }) => {
 
     const [user, setUser] = useLocalStorage('user', { username: '', role: '', basket: [], wishlist: [], token: '' })
 
+
     // Basket
 
     async function AddToBasket(item) {
@@ -30,17 +31,28 @@ export const UserProvider = ({ children }) => {
     // Wishlist
 
     async function AddToWishlist(item) {
-        let WislistCopy = user.wishlist
-        const itemIndex = WislistCopy.findIndex(x => x._id === item._id)
+        let WishlistCopy = user.wishlist
+        const itemIndex = WishlistCopy.findIndex(x => x._id === item._id)
         if (itemIndex === -1) {
             item.count = 1
-            WislistCopy.push(item)
-            user.wishlist = WislistCopy
+            WishlistCopy.push(item)
+            user.wishlist = WishlistCopy
+            localStorage.setItem('user', JSON.stringify(user))
+            console.log(WishlistCopy);
             return
         }
-        WislistCopy[itemIndex].count++
-        user.wishlist = WislistCopy
+        WishlistCopy[itemIndex].count++
+        user.wishlist = WishlistCopy
+        localStorage.setItem('user', JSON.stringify(user))
+        console.log(WishlistCopy);
     }
+
+    function isInWishlist(item) {
+        const WislistCopy = user.wishlist
+        const Found = WislistCopy.find(x=> x.id === item.id)
+        return Found ? true : false
+    }
+
 
     // Data
 
@@ -49,6 +61,7 @@ export const UserProvider = ({ children }) => {
         setUser: setUser,
         AddToBasket,
         AddToWishlist,
+        isInWishlist,
     }
 
     return (

@@ -1,21 +1,18 @@
 import React from 'react';
-import { useBasket } from '../../../Context/basketContext';
-import { useWishlist } from '../../../Context/wishlistContext';
+import { useUser } from '../../../Context/userContext';
 import './index.scss';
 
-function Product({...props}) {
+function Product({ ...props }) {
 
-  const DiscountedPrice = (+props.price*(100-props.discount))/100
-  
-  const {basket, AddItem, DeleteItem, ReadJust} = useBasket()
+  const { user, AddToWishlist, isInWishlist, AddToBasket } = useUser()
 
-  const { wishlist, AddToWishlist, isInWishlist } = useWishlist()
+  const DiscountedPrice = (+props.price * (100 - props.discount)) / 100
 
   return (
     <div id='product'>
       <div className="productImgBox">
         <img src={props.img} alt="" />
-        <button className="addToBasket" onClick={()=>AddItem(props)}>Add To Cart</button>
+        <button className="addToBasket" onClick={() => AddItem(props)}>Add To Cart</button>
       </div>
       <div className="productTextBox">
         <h5 className='productTitle'>{props.title}</h5>
@@ -23,7 +20,7 @@ function Product({...props}) {
         <span className='productDiscount'>-{props.discount}%</span>
       </div>
       <div className="buttonsBox">
-        <button className="addButton addToWishlist" onClick={()=>AddToWishlist(props)}><i className="fa-regular fa-heart"></i></button>
+        <button className="addButton addToWishlist" onClick={() => AddToWishlist(props)}><i className={`fa-${isInWishlist(props) ? "solid" : "regular"} fa-heart`}></i></button>
         <button className="addButton inspect"><i className="fa-regular fa-eye"></i></button>
       </div>
     </div>

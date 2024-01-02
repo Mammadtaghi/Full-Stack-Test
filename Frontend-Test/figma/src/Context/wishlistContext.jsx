@@ -26,7 +26,7 @@ export const WishlistProvider =({children})=>{
     function isInWishlist(item) {
         const Found = wishlist.find(x=> x.id === item.id)
         
-        Found ? true : false
+        return Found ? true : false
     }
 
     const data={
